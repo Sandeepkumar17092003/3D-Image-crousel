@@ -1,0 +1,94 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #282c34;
+  overflow: hidden; /* Prevent any overflow */
+}
+
+.container {
+  position: relative;
+  perspective: 1000px;
+}
+
+.circle {
+  width: 400px; /* Increased width to fit larger images */
+  height: 400px; /* Increased height to fit larger images */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotateY(0deg); /* Center the circle */
+  transform-style: preserve-3d;
+  animation: rotate 20s infinite linear; /* Automatic rotation */
+}
+
+/* Central anchor to show the axis of rotation */
+.anchor {
+  width: 50px;
+  height: 50px;
+  background-color: #ff5733; /* Make it visually distinctive */
+  border-radius: 50%; /* Circular shape */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 15px rgba(255, 87, 51, 0.7); /* Glowing effect */
+  z-index: 1; /* Ensure it's above the reflection but below images */
+}
+
+.circle img {
+  position: absolute;
+  width: 120px; /* Increased image size */
+  height: 120px; /* Increased image size */
+  object-fit: cover;
+  border-radius: 0.5rem; /* Rounded corners */
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5); /* Enhanced shadow for better visibility */
+  z-index: 2; /* Ensure the images are above the anchor */
+}
+
+.circle img:nth-child(1) { transform: rotateY(0deg) translateZ(200px); } /* Adjusted translateZ for larger images */
+.circle img:nth-child(2) { transform: rotateY(36deg) translateZ(200px); }
+.circle img:nth-child(3) { transform: rotateY(72deg) translateZ(200px); }
+.circle img:nth-child(4) { transform: rotateY(108deg) translateZ(200px); }
+.circle img:nth-child(5) { transform: rotateY(144deg) translateZ(200px); }
+.circle img:nth-child(6) { transform: rotateY(180deg) translateZ(200px); }
+.circle img:nth-child(7) { transform: rotateY(216deg) translateZ(200px); }
+.circle img:nth-child(8) { transform: rotateY(252deg) translateZ(200px); }
+.circle img:nth-child(9) { transform: rotateY(288deg) translateZ(200px); }
+.circle img:nth-child(10) { transform: rotateY(324deg) translateZ(200px); }
+
+@keyframes rotate {
+  from {
+    transform: translate(-50%, -50%) rotateY(0deg); /* Fixed at center */
+  }
+  to {
+    transform: translate(-50%, -50%) rotateY(360deg); /* Rotate at the same position */
+  }
+}
+
+.reflection {
+  width: 400px; /* Adjusted width for larger reflection */
+  height: 200px; /* Adjusted height for larger reflection */
+  position: absolute;
+  top: calc(50% + 230px); /* Positioned below the circle */
+  left: 50%;
+  transform: translate(-50%, 0) rotateX(180deg); /* Centered and flipped */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(255, 255, 255, 0));
+  filter: blur(10px);
+  transform-origin: top;
+}
+
+.reflection::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.2), transparent);
+}
